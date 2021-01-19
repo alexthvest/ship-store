@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shipstore/components/group_card_item.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
+  final List<GroupCardItem> items;
 
-  const GroupCard({Key key, this.title}) : super(key: key);
+  const GroupCard({
+    Key key,
+    @required this.title,
+    this.items = const [],
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       padding: const EdgeInsets.only(
-        top: 24,
-        left: 24,
-        right: 24,
-        bottom: 12,
+        top: 24.0,
+        left: 24.0,
+        right: 24.0,
+        bottom: 12.0,
       ),
-      margin: const EdgeInsets.only(bottom: 8),
-      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,61 +32,12 @@ class GroupCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.button.copyWith(
-                  fontSize: 18,
+                  fontSize: 18.0,
                 ),
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16.0),
           Column(
-            children: [
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(Icons.shopping_cart_outlined),
-                trailing: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '-1,000',
-                      style: Theme.of(context).textTheme.button,
-                    ),
-                    Text('нихуя', style: Theme.of(context).textTheme.caption),
-                  ],
-                ),
-                title: Text(
-                  'Shimakaze',
-                  style: Theme.of(context).textTheme.button,
-                ),
-                subtitle: Text(
-                  '10:26',
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(Icons.shopping_cart_outlined),
-                trailing: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '-1,000',
-                      style: Theme.of(context).textTheme.button,
-                    ),
-                    Text('нихуя', style: Theme.of(context).textTheme.caption),
-                  ],
-                ),
-                title: Text(
-                  'Shimakaze',
-                  style: Theme.of(context).textTheme.button,
-                ),
-                subtitle: Text(
-                  '10:26',
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ),
-            ],
+            children: items,
           ),
         ],
       ),

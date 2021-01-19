@@ -4,32 +4,65 @@ class GroupCardItem extends StatelessWidget {
   final Icon icon;
   final String title;
   final String subtitle;
+  final double contentPadding;
 
-  const GroupCardItem({Key key, this.icon, this.title, this.subtitle})
-      : super(key: key);
+  const GroupCardItem({
+    Key key,
+    this.icon,
+    this.contentPadding = 8.0,
+    @required this.title,
+    @required this.subtitle,
+  }) : super(key: key);
+
+  Widget _buildTwoLineContent(
+    BuildContext context, {
+    String title,
+    String subtitle,
+    CrossAxisAlignment crossAxisAlignment,
+  }) {
+    return Column(
+      crossAxisAlignment: crossAxisAlignment,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.button,
+        ),
+        SizedBox(height: 4.0),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.caption,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: icon,
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.button,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 16.0,
+        horizontal: contentPadding,
       ),
-      subtitle: Text(
-        subtitle,
-        style: Theme.of(context).textTheme.caption,
-      ),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            '-1,000',
-            style: Theme.of(context).textTheme.button,
+          if (icon != null) ...[
+            icon,
+            SizedBox(width: 24.0),
+          ],
+          _buildTwoLineContent(
+            context,
+            title: title,
+            subtitle: subtitle,
+            crossAxisAlignment: CrossAxisAlignment.start,
           ),
-          Text('нихуя', style: Theme.of(context).textTheme.caption),
+          Spacer(),
+          _buildTwoLineContent(
+            context,
+            title: '-1,000',
+            subtitle: 'нихуя',
+            crossAxisAlignment: CrossAxisAlignment.end,
+          ),
         ],
       ),
     );
